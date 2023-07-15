@@ -1,0 +1,65 @@
+.humour-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px
+  }
+  
+  .emoticons {
+    display: flex;
+    width: 100%;
+  }
+  
+  .emoticon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .emoticon:hover {
+    filter: brightness(90%);
+  }
+  
+  .emoticon-icon {
+    font-size: 36px;
+  }
+  
+  .emoticon-description {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .happy .emoticon-icon {
+    color: rgb(250, 98, 225);
+  }
+  
+  .super-happy .emoticon-icon {
+    color: #ffcc00;
+  }
+  
+  .normal .emoticon-icon {
+    color: #04ff04;
+  }
+  
+  .sad .emoticon-icon {
+    color: #0099ff;
+  }
+  
+  .crying .emoticon-icon {
+    color: #ff0000;
+  }
+  
+  .emoticon:hover .emoticon-icon {
+    filter: brightness(80%);
+  }
+
+  .emoticon.active {
+    background-color: #b4e8b4;
+  }
+  
+  .emoticon.active .check-icon {
+    display: block;
+  }
