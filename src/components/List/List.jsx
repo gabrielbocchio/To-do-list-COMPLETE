@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import "./list.css";
+import './list.css';
 
 const List = ({ list, toggleCompleted, removeItem, handleListUpdate }) => {
   const [draggedOverIndex, setDraggedOverIndex] = useState(null);
   const [editingItem, setEditingItem] = useState(null);
-  const [updatedItemText, setUpdatedItemText] = useState("");
+  const [updatedItemText, setUpdatedItemText] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', '');
+    setDraggedOverIndex(index);
+  };
+
+  const handleTouchStart = (e, index) => {
     setDraggedOverIndex(index);
   };
 
@@ -19,11 +23,11 @@ const List = ({ list, toggleCompleted, removeItem, handleListUpdate }) => {
     setUpdatedItemText(itemToEdit.text);
     setIsEditing(true);
   };
-  
+
   const updateItemText = (e) => {
     setUpdatedItemText(e.target.value);
   };
- 
+
   const saveItemText = () => {
     const updatedItems = list.map((item) => {
       if (item.id === editingItem.id) {
@@ -47,6 +51,17 @@ const List = ({ list, toggleCompleted, removeItem, handleListUpdate }) => {
     }
   };
 
+  const handleTouchMove = (e, index) => {
+    e.preventDefault();
+    if (index !== draggedOverIndex) {
+      const items = Array.from(list);
+      const [draggedItem] = items.splice(draggedOverIndex, 1);
+      items.splice(index, 0, draggedItem);
+      handleListUpdate(items);
+      setDraggedOverIndex(index);
+    }
+  };
+
   const handleDragEnd = () => {
     setDraggedOverIndex(null);
   };
@@ -58,11 +73,13 @@ const List = ({ list, toggleCompleted, removeItem, handleListUpdate }) => {
           key={item.id}
           className="task"
           draggable
+          onTouchStart={(e) => handleTouchStart(e, index)}
+          onTouchMove={(e) => handleTouchMove(e, index)}
           onDragStart={(e) => handleDragStart(e, index)}
           onDragOver={(e) => handleDragOver(e, index)}
           onDragEnd={handleDragEnd}
           style={{
-            textDecoration: item.completed ? "line-through" : "none",
+            textDecoration: item.completed ? 'line-through' : 'none',
             opacity: index === draggedOverIndex ? 0.5 : 1,
           }}
         >
