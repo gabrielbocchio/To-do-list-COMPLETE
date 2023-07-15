@@ -8,7 +8,7 @@ import {
   faAngry,
 } from '@fortawesome/free-solid-svg-icons';
 
-import './Humour.css';
+import './humour.css';
 const Humour = ({ currentDate }) => {
   const [selectedEmoticon, setSelectedEmoticon] = useState(null);
 
